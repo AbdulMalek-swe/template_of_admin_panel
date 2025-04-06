@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [focusField, setFocusField] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [inputValues, setInputValues] = useState({ username: "", password: "" });
+  const [inputValues, setInputValues] = useState({
+    username: "",
+    password: "",
+  });
   const [errors, setErrors] = useState({ username: "", password: "" });
   const passwordRef = useRef(null);
   const navigate = useNavigate();
@@ -29,18 +32,20 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+
     if (validateFields()) {
       navigate("/dashboard");
       alert("Login successful");
       console.log("inputValues", inputValues);
-      
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-200 to-gray-900">
-      <div className="absolute inset-0 bg-[url('image/bg/starry-night.webp')] bg-cover bg-center opacity-20"></div>
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: "url('/image/bg/starry-night.webp')" }}
+      ></div>
       <div className="relative w-96 p-8 bg-white/30 rounded-lg shadow-lg text-white border border-white">
         <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
         <div className="space-y-6">
@@ -72,7 +77,9 @@ const Login = () => {
               <FaRegUser />
             </span>
             {errors.username && (
-              <label className="text-red-500 text-xs mt-1">{errors.username}</label>
+              <label className="text-red-500 text-xs mt-1">
+                {errors.username}
+              </label>
             )}
           </div>
 
@@ -109,7 +116,9 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
             {errors.password && (
-              <label className="text-red-500 text-xs mt-1">{errors.password}</label>
+              <label className="text-red-500 text-xs mt-1">
+                {errors.password}
+              </label>
             )}
           </div>
 
@@ -118,7 +127,9 @@ const Login = () => {
             <label className="flex items-center">
               <input type="checkbox" className="mr-2" /> Remember me
             </label>
-            <a href="#" className="hover:underline">Forgot password?</a>
+            <a href="#" className="hover:underline">
+              Forgot password?
+            </a>
           </div>
 
           {/* Login Button */}
