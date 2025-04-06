@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FaEye, FaEyeSlash, FaRegUser } from "react-icons/fa"; // Import Icons
 import { MdOutlineEmail } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [focusField, setFocusField] = useState("");
@@ -16,6 +17,7 @@ const Register = () => {
     password: "",
   }); // Error state
   const passwordRef = useRef(null); // Create ref for password input
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -43,6 +45,7 @@ const Register = () => {
     e.preventDefault();
     if (validateFields()) {
       // Proceed with the login logic
+      navigate("/");
       alert("registration successful");
       console.log("inputValues", inputValues);
     }

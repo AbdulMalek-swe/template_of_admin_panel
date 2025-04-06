@@ -119,7 +119,7 @@ const Sidebar = ({ toggleSidebar, menuOpen, menuStyle }) => {
                   onClick={() => toggleMenu(item.title)}
                 >
                   {/* Icon - Fixed Size */}
-                  <span className="mr-3 flex-shrink-0 text-xl p-3">
+                  <span className="mr-3 flex-shrink-0 text-xl pl-6 p-3">
                     {item.icon}
                   </span>
 

@@ -76,6 +76,17 @@ const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
       .catch((error) => console.error("Error fetching country data:", error));
   }, []);
 
+  const handleFullscreen = () => {
+    const element = document.documentElement; // You can also use any specific element
+    if (!document.fullscreenElement) {
+      element.requestFullscreen().catch((err) => {
+        console.error("Failed to enable fullscreen mode:", err);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
   return (
     <div
       className={`bg-lightCard dark:bg-darkCard  py-4 px-2 shadow-md dark:shadow-md w-full relative  `}
@@ -97,8 +108,26 @@ const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
             <ThemeColor toggleTheme={toggleTheme} theme={theme} />
           </div>
         </div>
-        <IoNotificationsOutline className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
-        <RiFullscreenFill className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
+
+        <div className="relative">
+          <IoNotificationsOutline className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
+
+          {/* Badge with blinking center */}
+          <div className="absolute -top-1 -right-1 h-4 w-4">
+            {/* Blinking Ping */}
+            <span className="absolute inset-0 bg-red-500 rounded-full animate-ping"></span>
+
+            {/* Solid badge with text */}
+            <span className="absolute inset-0 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              3
+            </span>
+          </div>
+        </div>
+
+        {/* <RiFullscreenFill className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" /> */}
+        <div onClick={handleFullscreen}>
+      <RiFullscreenFill className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
+    </div>
         <FiGrid className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
 
         {/* User Profile Section */}
