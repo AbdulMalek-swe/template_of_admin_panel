@@ -16,7 +16,8 @@ import {
   MdSettingsAccessibility,
   MdOutlineCategory,
 } from "react-icons/md";
-import logo from "../../assets/logo/Zanicon.jpg";
+// import logo from "../../assets/logo/Zanicon.jpg";
+import logo from "../../assets/logo/ZanIcon.jpg";
 
 
 const Sidebar = ({ toggleSidebar, menuOpen, menuStyle }) => {
