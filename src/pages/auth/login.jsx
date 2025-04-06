@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-200 to-gray-900">
-      <div className="absolute inset-0 bg-[url('image/bg/starry-night.avif')] bg-cover bg-center opacity-20"></div>
+      <div className="absolute inset-0 bg-[url('image/bg/starry-night.webp')] bg-cover bg-center opacity-20"></div>
       <div className="relative w-96 p-8 bg-white/30 rounded-lg shadow-lg text-white border border-white">
         <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
         <div className="space-y-6">
