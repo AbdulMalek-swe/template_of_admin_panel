@@ -1,34 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React  from "react";
+import { FaRegMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
 
-const ThemeColor = () => {
-  const [theme, setTheme] = useState(() => {
-    return (
-      localStorage.getItem("theme") ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light")
-    );
-  });
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+const ThemeColor = ({toggleTheme,theme}) => {
+ 
   return (
     <div>
       <button
-        onClick={toggleTheme}
-        className="p-2 rounded bg-green-900 dark:bg-red-900 text-gray-800 dark:text-gray-200"
+        onClick={()=>{toggleTheme(theme=='dark'?'light':'dark')}}
+        className="mt-1"
       >
-        {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}sdfsdf 
+        {theme === "light" ? <FaRegMoon className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer" /> :<MdOutlineWbSunny className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer" />}
       </button>
     </div>
   );

@@ -60,7 +60,7 @@ const customInputFieldDesign = (props, pos) => {
     } else {
       return props?.error
         ? `w-full text-sm   disabled:bg-gray-300 rounded-r-md outline-none p-[14px] border border-red-500 ${props?.className} bg-lightCard dark:bg-darkCard   text-lightTitle dark:text-light`
-        : `w-full text-sm   disabled:bg-gray-300 bg-lightCard dark:bg-darkCard   text-lightTitle dark:text-darkTitle rounded-r-md outline-none p-[14px] border border-lightBorder dark:border-darkBorder disabled:border-gray-300 ${props?.className}`;
+        : `w-full text-sm   disabled:bg-gray-300 bg-lightCard dark:bg-darkCard   text-lightTitle dark:text-darkTitle  outline-none p-[14px] border border-lightBorder dark:border-darkBorder disabled:border-gray-300 ${props?.className}`;
     }
   };
   return {

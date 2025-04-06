@@ -1,5 +1,6 @@
 import { DashboardLayout } from "../layouts/dashboard.layout";
 import CategoryShow from "../pages/category";
+import Dashboard from "../pages/Dashboard/Dashboard";
 // import { getToken } from "../utils/helpers";
 
  
@@ -8,7 +9,8 @@ const appRoutes = [
     path: "dashboard",
     element: <DashboardLayout />,
      children:[
-      { path: "category", element:  <CategoryShow/> },
+      { index:true, element:  <Dashboard></Dashboard> },
+      { path:"category", element:  <CategoryShow/> },
        
      ]
   },

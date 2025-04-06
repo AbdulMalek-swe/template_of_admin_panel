@@ -25,19 +25,19 @@ body {
 }
 
 .rdt_Table {
-  @apply bg-white text-gray-900 border-gray-300;  
+  @apply bg-light text-dark border-lightBorder;  
 }
 
 .rdt_TableHead {
-  @apply bg-gray-100 text-gray-800;  
+  @apply bg-light text-lightTitle;  
 }
 
 .rdt_TableRow {
-  @apply bg-white text-gray-900 border-b border-gray-200;  
+  @apply bg-light text-lightTitle border-b border-lightBorder;  
 }
 
 .rdt_TableRow:hover {
-  @apply bg-gray-50 text-gray-600;  
+  @apply bg-light text-lightTitle;  
 }
 
 /* Dark Mode Styles */
@@ -47,19 +47,22 @@ body {
 }
 
 .dark .rdt_Table {
-  @apply bg-gray-800 text-gray-100 border-gray-700;  
+  @apply bg-dark text-darkTitle border-darkBorder;  
 }
 
 .dark .rdt_TableHead {
-  @apply bg-gray-700 text-gray-200;  
+  @apply bg-dark text-darkTitle;  
+}
+.dark .rdt_TableHeadRow {
+  @apply bg-darkCard text-darkTitle;  
 }
 
 .dark .rdt_TableRow {
-  @apply bg-gray-800 text-gray-100 border-b border-gray-600; 
+  @apply bg-darkCard text-darkTitle border-b border-darkBorder; 
 }
 
 .dark .rdt_TableRow:hover {
-  @apply bg-gray-600;  
+  @apply bg-darkCard text-darkTitle ;  
 }
  
 .rdt_Table,
