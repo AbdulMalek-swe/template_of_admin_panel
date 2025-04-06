@@ -6,11 +6,15 @@ const Register = () => {
   const [focusField, setFocusField] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [inputValues, setInputValues] = useState({
-    name:"",
+    username: "",
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({username: "",email:"",  password: "" }); // Error state
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+  }); // Error state
   const passwordRef = useRef(null); // Create ref for password input
 
   const togglePasswordVisibility = () => {
@@ -20,10 +24,10 @@ const Register = () => {
 
   // Validate fields
   const validateFields = () => {
-    const newErrors = {username: "",email:"",  password: ""  };
+    const newErrors = { username: "", email: "", password: "" };
     if (!inputValues.username) {
-        newErrors.username = "Username is required.";
-      }
+      newErrors.username = "Username is required.";
+    }
     if (!inputValues.email) {
       newErrors.email = "email is required.";
     }
@@ -40,35 +44,44 @@ const Register = () => {
     if (validateFields()) {
       // Proceed with the login logic
       alert("registration successful");
+      console.log("inputValues", inputValues);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-500">
-      <div className="absolute inset-0 bg-[url('image/bg/starry-night.avif')] bg-cover bg-center opacity-20"></div>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-600">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: "url('/image/bg/starry-night.webp')" }}
+      ></div>
       <div className="relative w-96 p-8 bg-white/30 rounded-lg  text-white border border-white">
         <h2 className="text-center text-2xl font-bold mb-4">Registration</h2>
         <div className="space-y-6">
           {/* Username Input */}
           <div className="relative">
             <label
-              className={`absolute left-3 text-sm text-white transition-all ${
+              htmlFor="username"
+              className={`absolute left-3 text-sm text-white transition-all cursor-pointer  ${
                 focusField === "username" || inputValues.username
-                  ? "-top-3 left-3 text-xs text-purple-300"
+                  ? "-top-3 left-3  text-white"
                   : "top-6"
               }`}
             >
               Username
             </label>
             <input
+              id="username"
               type="text"
               value={inputValues.username}
-              className="w-full p-3 pr-10 text-white outline-none border-b-2 bg-transparent"
+              className="w-full p-3 pr-10 text-white outline-none border-b-2  bg-transparent"
               onFocus={() => setFocusField("username")}
               onBlur={() => setFocusField("")}
-              onChange={(e) =>
-                setInputValues({ ...inputValues, username: e.target.value })
-              }
+              onChange={(e) => {
+                setInputValues({ ...inputValues, username: e.target.value });
+                if (errors.username) {
+                  setErrors({ ...errors, username: "" });
+                }
+              }}
             />
             <span className="absolute right-3 top-6 text-white">
               <FaRegUser />
@@ -82,30 +95,35 @@ const Register = () => {
           {/* Username Input */}
           <div className="relative">
             <label
-              className={`absolute left-3 text-sm text-white transition-all ${
+              htmlFor="email"
+              className={`absolute left-3 text-sm text-white transition-all cursor-pointer ${
                 focusField === "email" || inputValues.email
-                  ? "-top-3 left-3 text-xs text-purple-300"
+                  ? "-top-3 left-3  text-white"
                   : "top-6"
               }`}
             >
               Email
             </label>
             <input
+              id="email"
               type="text"
               value={inputValues.email}
               className="w-full p-3 pr-10 text-white outline-none border-b-2 bg-transparent"
               onFocus={() => setFocusField("email")}
               onBlur={() => setFocusField("")}
-              onChange={(e) =>
-                setInputValues({ ...inputValues, email: e.target.value })
-              }
+              onChange={(e) => {
+                setInputValues({ ...inputValues, email: e.target.value });
+                if (errors.email) {
+                  setErrors({ ...errors, email: "" });
+                }
+              }}
             />
             <span className="absolute right-3 top-6 text-white">
-            <MdOutlineEmail />
+              <MdOutlineEmail />
             </span>
-            {errors.username && (
+            {errors.email && (
               <label className="text-red-500 text-xs mt-1">
-                {errors.username}
+                {errors.email}
               </label>
             )}
           </div>
@@ -113,29 +131,34 @@ const Register = () => {
           {/* Password Input */}
           <div className="relative">
             <label
-              className={`absolute left-3 text-sm text-white transition-all ${
+              htmlFor="pass"
+              className={`absolute left-3 text-sm text-white transition-all cursor-pointer ${
                 focusField === "password" || inputValues.password
-                  ? "-top-3 left-3 text-xs text-purple-300"
+                  ? "-top-3 left-3  text-white"
                   : "top-6"
               }`}
             >
               Password
             </label>
             <input
+              id="pass"
               ref={passwordRef} // Assign ref to password input
               type={showPassword ? "text" : "password"}
               value={inputValues.password}
               className="w-full p-3 pr-10 text-white outline-none border-b-2 bg-transparent"
               onFocus={() => setFocusField("password")}
               onBlur={() => setFocusField("")}
-              onChange={(e) =>
-                setInputValues({ ...inputValues, password: e.target.value })
-              }
+              onChange={(e) => {
+                setInputValues({ ...inputValues, password: e.target.value });
+                if (errors.password) {
+                  setErrors({ ...errors, password: "" });
+                }
+              }}
             />
             {/* Show/Hide Password Button */}
             <button
               type="button"
-              className="absolute right-3 top-6 text-white focus:outline-none"
+              className="absolute right-3 top-6 text-white focus:outline-none cursor-pointer"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -162,10 +185,8 @@ const Register = () => {
             className="w-full bg-white text-gray-600 py-2 rounded-lg font-bold transition cursor-pointer"
             onClick={handleSubmit} // Trigger validation and login
           >
-           SignUp
+            SignUp
           </button>
-
- 
         </div>
       </div>
     </div>

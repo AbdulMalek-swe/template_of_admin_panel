@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FaEye, FaEyeSlash, FaRegUser } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [focusField, setFocusField] = useState("");
@@ -52,15 +52,17 @@ const Login = () => {
           {/* Username Input */}
           <div className="relative">
             <label
-              className={`absolute left-3 text-sm transition-all ${
+              htmlFor="username"
+              className={`absolute left-3 text-sm transition-all cursor-pointer ${
                 focusField === "username" || inputValues.username
-                  ? "-top-3 left-3 text-xs text-white"
+                  ? "-top-3 left-3  text-white"
                   : "top-6 text-white"
               }`}
             >
               Username
             </label>
             <input
+              id="username"
               type="text"
               value={inputValues.username}
               className="w-full p-3 pr-10 text-white outline-none border-b-2 bg-transparent"
@@ -86,15 +88,17 @@ const Login = () => {
           {/* Password Input */}
           <div className="relative">
             <label
-              className={`absolute left-3 text-sm transition-all ${
+              htmlFor="pass"
+              className={`absolute left-3 text-sm transition-all cursor-pointer ${
                 focusField === "password" || inputValues.password
-                  ? "-top-3 left-3 text-xs text-white"
+                  ? "-top-3 left-3  text-white"
                   : "top-6 text-white"
               }`}
             >
               Password
             </label>
             <input
+              id="pass"
               ref={passwordRef}
               type={showPassword ? "text" : "password"}
               value={inputValues.password}
@@ -110,7 +114,7 @@ const Login = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-6 text-white focus:outline-none"
+              className="absolute right-3 top-6 text-white focus:outline-none cursor-pointer"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -143,9 +147,9 @@ const Login = () => {
           {/* Register Link */}
           <p className="text-center text-sm">
             Don’t have an account?{" "}
-            <a href="register" className="font-bold hover:underline">
+            <Link to="register" className="font-bold hover:underline">
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>
