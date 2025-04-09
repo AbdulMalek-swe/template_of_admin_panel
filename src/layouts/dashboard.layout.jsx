@@ -28,8 +28,9 @@ export const DashboardLayout = () => {
           setMenuStyle={setMenuStyle}
 
         />
-        <div className=" mx-auto overflow-y-auto  ">
-          {/* relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden  */}
+        <div className=" relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden   ">
+          
+          {/* mx-auto overflow-y-auto */}
           {/* Header start  */}
           
             {" "}
