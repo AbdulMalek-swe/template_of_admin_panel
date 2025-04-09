@@ -19,7 +19,6 @@ import {
 // import logo from "../../assets/logo/Zanicon.jpg";
 import logo from "../../assets/logo/ZanIcon.jpg";
 
-
 const Sidebar = ({ toggleSidebar, menuOpen, menuStyle }) => {
   const [openMenu, setOpenMenu] = useState(null);
 
@@ -98,7 +97,7 @@ const Sidebar = ({ toggleSidebar, menuOpen, menuStyle }) => {
   return (
     <>
       {menuStyle === "hover" && (
-        <div className=" w-20 hover:w-64 h-screen bg-lightCard dark:bg-darkCard dark:text-darkTitle py-4 group  transition-all duration-300 ease-in-out overflow-hidden shadow-2xl ">
+        <div className=" w-20 hover:w-64 h-screen bg-lightCard dark:bg-darkCard dark:text-darkTitle py-4 group  transition-all duration-300 ease-in-out overflow-hidden  z-50 ">
           {/* Logo */}
           <div className="flex items-center space-x-2 pb-[22px] border-b border-gray-300 pl-4 ">
             {/* <div className="text-blue-500 text-2xl font-bold">R</div> */}
@@ -109,48 +108,76 @@ const Sidebar = ({ toggleSidebar, menuOpen, menuStyle }) => {
           </div>
 
           {/* Menu List */}
+
           <nav className="mt-4">
-            {menuData.map((item, index) => (
-              <div key={index} className="mb-2">
-                {/* Parent Menu Item */}
-                <Link
-                  to={item.path}
-                  className="flex items-center w-full  text-left rounded-md"
-                  onClick={() => toggleMenu(item.title)}
-                >
-                  {/* Icon - Fixed Size */}
-                  <span className="mr-3 flex-shrink-0 text-xl pl-6 p-3">
-                    {item.icon}
-                  </span>
+            {menuData.map((item, index) => {
+              const isActive = location.pathname === item.path;
 
-                  {/* Title - Truncated for consistency */}
-                  <div className="hidden group-hover:block truncate w-full">
-                    {item.title}
-                  </div>
-                </Link>
+              return (
+                <div key={index} className="mb-2 relative">
+                  {/* Active Indicator */}
+                  {isActive && (
+                    <span className="absolute left-0 top-0 h-full w-1 bg-[#0d6efd] z-50"></span>
+                  )}
 
-                {/* Submenu Items (if exists) */}
-                {item.childrens && openMenu === item.title && (
-                  <div className="ml-6 mt-1 flex flex-col space-y-1">
-                    {item.childrens.map((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={subItem.path}
-                        className="flex items-center  text-sm rounded-md"
-                      >
-                        {/* Submenu Icon - Fixed Size */}
-                        <span className="mr-2 flex-shrink-0 text-lg p-2">
-                          {subItem.icon}
-                        </span>
+                  {/* Parent Menu Item */}
+                  <Link
+                    to={item.path}
+                    className={`flex items-center w-full text-left rounded-md transition-all duration-200 group
+            ${
+              isActive
+                ? "bg-blue-200 text-[#0d6efd]"
+                : "hover:text-black hover:bg-blue-100"
+            }
+          `}
+                    onClick={() => toggleMenu(item.title)}
+                  >
+                    {/* Icon - Fixed Size */}
+                    <span className="mr-3 flex-shrink-0 text-xl pl-6 p-2">
+                      {item.icon}
+                    </span>
 
-                        {/* Submenu Title - Truncated */}
-                        <div className="truncate w-full">{subItem.title}</div>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                    {/* Title */}
+                    <div className="hidden group-hover:block truncate w-full">
+                      {item.title}
+                    </div>
+                  </Link>
+
+                  {/* Submenu Items */}
+                  {item.childrens && openMenu === item.title && (
+                    <div className="ml-6 mt-1 flex flex-col space-y-1">
+                      {item.childrens.map((subItem, subIndex) => {
+                        const isSubActive = location.pathname === subItem.path;
+
+                        return (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`flex items-center text-sm rounded-md  pl-4 transition-all duration-200 relative
+                    ${
+                      isSubActive
+                        ? "bg-blue-200 text-blue-900"
+                        : "hover:text-black hover:bg-blue-100"
+                    }
+                  `}
+                          >
+                            {/* Submenu Icon */}
+                            <span className="mr-2 flex-shrink-0 text-lg p-2">
+                              {subItem.icon}
+                            </span>
+
+                            {/* Submenu Title */}
+                            <div className="truncate w-full">
+                              {subItem.title}
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         </div>
       )}
@@ -202,14 +229,15 @@ const Sidebar = ({ toggleSidebar, menuOpen, menuStyle }) => {
                     to={item.path}
                     className={`flex items-center w-full  text-left rounded-md 
                 p-2 pl-6 transition-all duration-200 relative 
-                ${isActive ? "bg-blue-200 text-[#0d6efd]" : " hover:text-black hover:bg-blue-100 "}
+                ${
+                  isActive
+                    ? "bg-blue-200 text-[#0d6efd]"
+                    : " hover:text-black hover:bg-blue-100 "
+                }
               `}
                     onClick={() => toggleMenu(item.title)}
                   >
-               
-
-                    
-                    <span className="mr-3 flex-shrink-0 text-base pl-">
+                    <span className="mr-3 flex-shrink-0 text-base p-1">
                       {item.icon}
                     </span>
 

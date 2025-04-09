@@ -5,9 +5,11 @@ import { useState } from "react";
 
 export const DashboardLayout = () => {
   const [menuOpen, setMenuOpen] = useState(true);
-  const [menuStyle, setMenuStyle] = useState("click");
+  const [menuStyle, setMenuStyle] = useState("hover");
+  const [menuPosition, setMenuPosition] = useState("fixed");
 
   console.log("menuStyle", menuStyle);
+  console.log("menuPosition", menuPosition);
 
   const toggleSidebar = () => {
     console.log("first");
@@ -24,19 +26,29 @@ export const DashboardLayout = () => {
           menuOpen={menuOpen}
           menuStyle={menuStyle}
           setMenuStyle={setMenuStyle}
-        />
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden  ">
-          {/* Header start  */}
-          <Header
-            toggleSidebar={toggleSidebar}
-            menuOpen={menuOpen}
-            menuStyle={menuStyle}
-            setMenuStyle={setMenuStyle}
 
-          />
+        />
+        <div className=" mx-auto overflow-y-auto  ">
+          {/* relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden  */}
+          {/* Header start  */}
+          
+            {" "}
+            <Header
+              toggleSidebar={toggleSidebar}
+              menuOpen={menuOpen}
+              menuStyle={menuStyle}
+              setMenuStyle={setMenuStyle}
+              menuPosition={menuPosition}
+              setMenuPosition={setMenuPosition}
+            />
+         
           <main>
             <div
-              className={`mx-auto w-full p-4 md:p-6 2xl:p-10 bg-light dark:bg-dark  `}
+              className={`mx-auto w-full p-2 md:p-4 2xl:p-6 bg-light dark:bg-dark     ${
+                menuPosition === "fixed"
+                  ? "mt-20"
+                  : ""
+              } `}
             >
               <Outlet />
             </div>

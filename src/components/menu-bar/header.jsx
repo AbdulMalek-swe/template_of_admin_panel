@@ -9,7 +9,7 @@ import { FaCheck } from "react-icons/fa6";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import { FaFlag } from "react-icons/fa";
 
-const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
+const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle,setMenuPosition,menuPosition }) => {
   const [showPopup, setShowPopup] = useState(false);
   const popupRef = useRef(null);
   // const [header, setHeader] = useState("fixed");
@@ -89,7 +89,11 @@ const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
 
   return (
     <div
-      className={`bg-lightCard dark:bg-darkCard  py-4 px-2 shadow-md dark:shadow-md w-full relative  `}
+      className={`bg-lightCard dark:bg-darkCard  py-4 px-2 shadow-md dark:shadow-md w-full ${
+        menuPosition === "fixed"
+          ? "fixed top-0 right-0"
+          : "relative"
+      } z-10  `}
     >
       {menuStyle == "click" && !menuOpen && (
         <RiMenuUnfold3Fill
@@ -112,22 +116,24 @@ const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
         <div className="relative">
           <IoNotificationsOutline className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
 
-          {/* Badge with blinking center */}
-          <div className="absolute -top-1 -right-1 h-4 w-4">
-            {/* Blinking Ping */}
-            <span className="absolute inset-0 bg-red-500 rounded-full animate-ping"></span>
+          {/* Badge with blinking and solid center */}
+          <div className="absolute -top-1 -right-1">
+            <div className="relative h-5 w-5">
+              {/* Blinking Ping */}
+              <span className="absolute top-0 left-0 h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
 
-            {/* Solid badge with text */}
-            <span className="absolute inset-0 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-              3
-            </span>
+              {/* Solid badge with text */}
+              <span className="absolute top-0 left-0 h-full w-full rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">
+                999
+              </span>
+            </div>
           </div>
         </div>
 
         {/* <RiFullscreenFill className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" /> */}
         <div onClick={handleFullscreen}>
-      <RiFullscreenFill className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
-    </div>
+          <RiFullscreenFill className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
+        </div>
         <FiGrid className="text-4xl bg-gray-200 p-2 rounded-full cursor-pointer hidden md:block" />
 
         {/* User Profile Section */}
@@ -149,22 +155,26 @@ const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
           {showPopup && (
             <div
               className={`absolute right-0 mt-2 w-48 bg-light shadow-lg rounded-lg py-2 dark:bg-darkCard dark:text-darkTitle 
-              transition-all duration-300 z-50 ${
-                showPopup ? "opacity-100 scale-100" : "opacity-0 scale-95"
-              }`}
+   transition-all duration-300 z-50 `}
             >
               <ul>
-                <li className="flex items-center gap-3 px-4 py-2  cursor-pointer">
+                <li className="flex items-center gap-3 px-4 py-2 cursor-pointer group relative">
                   <FiUser className="text-lg" />
                   <span>Profile</span>
+                  {/* Hover underline */}
+                  <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-current transition-all duration-700 group-hover:w-[80%] group-hover:left-[10%]"></span>
                 </li>
-                <li className="flex items-center gap-3 px-4 py-2  cursor-pointer">
+
+                <li className="flex items-center gap-3 px-4 py-2 cursor-pointer group relative">
                   <FiSettings className="text-lg" />
                   <span>Settings</span>
+                  <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-current transition-all duration-700 group-hover:w-[80%] group-hover:left-[10%]"></span>
                 </li>
-                <li className="flex items-center gap-3 px-4 py-2 cursor-pointer text-red-500">
+
+                <li className="flex items-center gap-3 px-4 py-2 cursor-pointer text-red-500 group relative">
                   <FiLogOut className="text-lg" />
                   <span>Logout</span>
+                  <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-red-500 transition-all duration-700 group-hover:w-[80%] group-hover:left-[10%]"></span>
                 </li>
               </ul>
             </div>
@@ -292,6 +302,56 @@ const Header = ({ toggleSidebar, menuOpen, setMenuStyle, menuStyle }) => {
                   )}
                 </div>
                 <span className="text-dark">Icon hover</span>
+              </button>
+            </div>
+          </div>
+          {/* menu position */}
+          <div className="mb-4">
+            <h3 className="text-xl font-medium mb-2 pt-2 text-left">
+              Menu Position
+            </h3>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setMenuPosition("fixed")}
+                className={`w-full rounded-full p-2 md:p-3 flex items-center space-x-2 ${
+                  menuPosition == "fixed" ? "bg-blue-500" : "bg-gray-200"
+                }`}
+              >
+                <div
+                  className={`${
+                    menuPosition ? "border-none" : "border"
+                  } w-7 h-7 rounded-full flex items-center justify-center text-black z-30 ${
+                    menuPosition == "fixed" ? "bg-white" : "bg-white"
+                  }`}
+                >
+                  {menuPosition == "fixed" ? (
+                    <FaCheck className="text-blue-600" />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <span className="text-dark">Fixed</span>
+              </button>
+              <button
+                onClick={() => setMenuPosition("scrollable")}
+                className={`w-full rounded-full p-2 md:p-3 flex items-center space-x-2 ${
+                  menuPosition == "scrollable" ? "bg-blue-500" : "bg-gray-200"
+                }`}
+              >
+                <div
+                  className={`${
+                    menuStyle ? "border-none" : "border"
+                  } w-7 h-7 rounded-full flex items-center justify-center text-black z-30 ${
+                    menuPosition == "scrollable" ? "bg-white" : "bg-white"
+                  }`}
+                >
+                  {menuPosition == "scrollable" ? (
+                    <FaCheck className="text-blue-600" />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <span className="text-dark">Scrollable</span>
               </button>
             </div>
           </div>
